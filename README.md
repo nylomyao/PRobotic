@@ -1,2 +1,2 @@
 # PRobotic
-widely use and practical algorithms learning
+Widely use and practical algorithms learning
