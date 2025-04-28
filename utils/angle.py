@@ -30,14 +30,16 @@ def rotation_scipy():
     # 恒等变换，不变换
     r0 = R.identity()
     # intrinsic
-    r1 = R.from_euler('ZYX', [90, -30, 0], degrees=True)
+    r1 = R.from_euler('zyx', [90, -30, 0], degrees=True)
     # extrinsic
     r2 = R.from_euler('zyx', [90, -30, 0], degrees=True)
 
     print(r2.as_matrix())
 
+    # 创建一个Axes3D的对象，ax对象有很多方法，内部的呈现的子坐标是画出来的
     ax = plt.figure().add_subplot(projection='3d', proj_type='ortho')
     plot_rotated_axes(ax, r0, name='r0', offset=(0, 0, 0))
+    # r2是在r0上进行旋转，不是在r1的基础上
     plot_rotated_axes(ax, r1, name='r1', offset=(3, 0, 0))
     plot_rotated_axes(ax, r2, name='r2', offset=(6, 0, 0))
     # '_' 占位符, 表示不打算使用它
@@ -66,8 +68,28 @@ def rot_mat_2d():
 
 
 
-def angel_mod():
-    pass
+def angle_mod(x, zero_2_2pi=False, degree=False):
+    '''
+    
+    '''
+    if isinstance(x, float):
+        is_float = True
+    else:
+        is_float = False
 
+    x = np.asarray(x).flatten()
+    if degree:
+        x = np.deg2rad(x)
 
-rotation_scipy()
+    if zero_2_2pi:
+        mod_angle = x % (2 * np.pi)
+    else:
+        mod_angle = (x + np.pi) % (2 * np.pi) - np.pi
+
+    if degree:
+        mod_angle = np.rad2deg(mod_angle)
+
+    if is_float:
+        return mod_angle.item()
+    else:
+        return mod_angle
