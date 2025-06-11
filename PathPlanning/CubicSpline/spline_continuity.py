@@ -23,3 +23,4 @@ class Spline2D:
     def calc_position(self, s):
         x = self.sx(s)
         y = self.sy(s)
+        return x, y
