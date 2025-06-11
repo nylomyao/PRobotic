@@ -69,9 +69,6 @@ def rot_mat_2d():
 
 
 def angle_mod(x, zero_2_2pi=False, degree=False):
-    '''
-    
-    '''
     if isinstance(x, float):
         is_float = True
     else:
