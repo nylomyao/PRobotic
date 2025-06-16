@@ -191,7 +191,6 @@ class CubicSpline2D:
         x coordinate for data points.
     y : list
         y coordinate for data points.
-
     '''
 
     def __init__(self, x, y):
@@ -200,12 +199,23 @@ class CubicSpline2D:
         self.sy = CubicSpline1D(self.s, y)
 
     def __calc_s(self, x, y):
+        '''
+        >>> import numpy as np
+        >>> x = np.array([3, 6, 9])
+        >>> y = np.array([4, 8, 12])
+        >>> np.hypot(x, y)
+        >>> [5, 10, 13]
+        >>> np.cumsum(np.hypot(x, y))
+        >>> [5, 15, 28]
+        '''
+        
         dx = np.diff(x)
         dy = np.diff(y)
-        self.ds = np.hypot(dx, dy)
+        self.ds = np.hypot(dx, dy) # 求一组点的距离并返回距离数组
         s = [0]
-        s.extend(np.cumsum(self.ds))
+        s.extend(np.cumsum(self.ds)) # 计算组元素累积和的函数
         return s
+
     
     def calc_position(self, s):
         '''
