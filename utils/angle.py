@@ -69,12 +69,34 @@ def rot_mat_2d():
 
 
 def angle_mod(x, zero_2_2pi=False, degree=False):
+    '''
+        """
+    Angle modulo operation
+    Default angle modulo range is [-pi, pi)
+
+    Parameters
+    ----------
+    x : float or array_like
+        A angle or an array of angles. This array is flattened for
+        the calculation. When an angle is provided, a float angle is returned.
+    zero_2_2pi : bool, optional
+        Change angle modulo range to [0, 2pi)
+        Default is False.
+    degree : bool, optional
+        If True, then the given angles are assumed to be in degrees.
+        Default is False.
+
+    Returns
+    -------
+    ret : float or ndarray
+        an angle or an array of modulated angle.
+    '''
     if isinstance(x, float):
         is_float = True
     else:
         is_float = False
 
-    x = np.asarray(x).flatten()
+    x = np.asarray(x).flatten() # 若x为多维，将其展开成一维
     if degree:
         x = np.deg2rad(x)
 
